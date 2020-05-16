@@ -21,8 +21,8 @@ public class HeapSort<K extends Comparable<K>> extends AbstractArraySort<K> {
 	@Override
 	public void sort(K[] inputArray) {
 		heapify(inputArray);
-		for (int i = inputArray.length; i > 0;) {
-			swap(inputArray, 0, i-1);
+		for (int i = inputArray.length - 1; i > 0;) {
+			swap(inputArray, 0, i);
 			i--;
 			downheap(inputArray, 0, i);
 		}
@@ -30,8 +30,8 @@ public class HeapSort<K extends Comparable<K>> extends AbstractArraySort<K> {
 
 	// Public since we are going to check its output!
 	public void heapify(K[] inputArray) {
-		for (int i = inputArray.length; i >= 0; i--) {
-			downheap(inputArray, i, inputArray.length);
+		for (int i = inputArray.length / 2; i >= 0; i--) {
+			downheap(inputArray, i, inputArray.length - 1);
 		}
 	}
 
@@ -39,19 +39,16 @@ public class HeapSort<K extends Comparable<K>> extends AbstractArraySort<K> {
 	// Feel free to add more methods
 
 	protected void downheap(K[] inputArray, int i, int endInd) {
-		if ((i * 2 + 1) > endInd - 1)
-			return;
-		int childInd;
-		if ((i * 2 + 2) > endInd - 1)
-			childInd = i * 2 + 1;
-		else
-			childInd = compare(inputArray[i * 2 + 1], inputArray[i * 2 + 2]) < 0 ? ((i * 2) + 2) : ((i * 2) + 1);
-		K self = inputArray[i];
-
-		int comp = compare(self, inputArray[childInd]);
-		if (comp > 0)
-			return;
-		swap(inputArray, i, childInd);
-		downheap(inputArray, childInd, endInd);
+		int current = i, left = 2 * i + 1, right = 2 * i + 2;
+		if (left <= endInd)
+			if (compare(inputArray[current], inputArray[left]) < 0)
+				current = left;
+		if (right <= endInd)
+			if (compare(inputArray[current], inputArray[right]) < 0)
+				current = right;
+		if (current != i) {
+			swap(inputArray, current, i);
+			downheap(inputArray, current, endInd);
+		}
 	}
 }
