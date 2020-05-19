@@ -2,24 +2,13 @@ package code;
 
 import given.AbstractArraySort;
 
-/*
- * Implement the quick-sort algorithm here. You can look at the slides for the pseudo-codes.
- * Make sure to use the swap and compare functions given in the AbstractArraySort!
- * 
- */
-
 public class QuickSort<K extends Comparable<K>> extends AbstractArraySort<K> {
 	// Add any fields here
 
 	public QuickSort() {
 		name = "Quicksort";
-
-		// Initialize anything else here
 	}
-
-	// useful if we want to return a pair of indices from the partition function.
-	// You do not need to use this if you are just returning and integer from the
-	// partition
+	
 	public class indexPair {
 		public int p1, p2;
 
@@ -48,7 +37,6 @@ public class QuickSort<K extends Comparable<K>> extends AbstractArraySort<K> {
 
 	}
 
-	// Public since we are going to check its output!
 
 	public indexPair partition(K[] inputArray, int lo, int hi, int p) {
 		// two-way partitioning
@@ -76,35 +64,8 @@ public class QuickSort<K extends Comparable<K>> extends AbstractArraySort<K> {
 		return pair;
 	}
 
-//	public indexPair partition(K[] inputArray, int lo, int hi, int p) {
-////		swap(inputArray, 0, p);
-//		int piv = lo, next = 1;
-//		for (int i = lo + 1; i < hi; i++) {
-//			if (compare(inputArray[piv], inputArray[piv + next]) > 0) {
-//				swap(inputArray, piv, piv + next);
-//				piv++;
-//			} else if (compare(inputArray[piv], inputArray[piv + next]) < 0) {
-//				swap(inputArray, piv + next, i);
-//				if (compare(inputArray[piv], inputArray[piv + next]) > 0) {
-//					swap(inputArray, piv, piv + next);
-//					piv++;
-//				}
-//			} else
-//				next++;
-//		}
-//		indexPair pair = new indexPair(piv - 1, piv + 1);
-//		return pair;
-//	}
 
-	/*
-	 * Alternative, if you are just returning an integer public int partition(K[]
-	 * inputArray, int lo, int hi, int p) { //TODO:: Implement a partitioning
-	 * function here return null; }
-	 */
-
-	// The below methods are given given as suggestion. You do not need to use them.
-	// Feel free to add more methods
-	protected int pickPivot(K[] inpuArray, int lo, int hi) {
+	protected int pickPivot(K[] inpuArray, int lo, int hi) { // optional use: it picks the median of first, last, and middle (to lower the chance of worst case occuring).
 		K maxK = max(inpuArray[(lo + hi) / 2], max(inpuArray[lo], inpuArray[hi]));
 		int median = 0;
 		if (maxK == inpuArray[lo])
